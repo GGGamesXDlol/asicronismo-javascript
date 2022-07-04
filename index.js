@@ -9,3 +9,15 @@ function calc(num1, num2, callback)
 }
 
 console.log(calc(2, 2, sum));
+
+setTimeout(function ()
+{
+    console.log("Me llamo José")
+}, 2000);
+
+function gretting(name) 
+{
+    console.log(`Hola ${name}`);
+}
+
+setTimeout(gretting, 2000, "Roberto");
