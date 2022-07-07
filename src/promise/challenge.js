@@ -1,19 +1,40 @@
 import fetch from "node-fetch";
-const API = "https://api.escuelajs.com/api/v1";
+const API = "https://api.escuelajs.co/api/v1";
 
 function fetchData(urlAPI)
 {
     return fetch(urlAPI);
 }
 
+// fetchData(`${API}/products`)
+//     .then(response => response.json())
+//     .then(products => 
+//     {
+//         console.log(products);
+//     })
+//     .then(() =>
+//     {
+//         console.log(hola);
+//     })
+//     .catch(error => console.log(error));
+
 fetchData(`${API}/products`)
     .then(response => response.json())
-    .then(products => 
+    .then(products =>
     {
         console.log(products);
+        return fetchData(`${API}/products/${products[0].id}`);
     })
-    .then(() =>
+    .then(response => response.json())
+    .then(product =>
     {
-        console.log(hola);
+        console.log(product.title);
+        return fetchData(`${API}/products/${product.category.id}`);
     })
-    .catch(error => console.log(error));
+    .then(response => response.json())
+    .then(category =>
+    {
+        console.log(category.name);
+    })
+    .catch(error => console.log(error))
+    .finally(() => console.log("Finally"));
